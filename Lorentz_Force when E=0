@@ -1,0 +1,60 @@
+program lorentz
+    implicit none
+        real:: E,F,q,B,Fx,Fy,vx,vy,Bz,h,T,m,x,y
+        real::k1x,k1y,k1_vx,k1_vy
+        real::k2x,k2y,k2_vx,k2_vy
+        real::k3x,k3y,k3_vx,k3_vy
+        real::k4x,k4y,k4_vx,k4_vy
+        real:: ax,ay
+        integer::i,N
+
+        E = 0.0
+        Bz =1.0
+        h = 0.1
+        m = 1.0
+        x = 1.0
+        y = 1.0
+        t = 0.0
+        vx = 2.0
+        vy = 4.0
+        q = 1.0
+        N = 200
+        Fx = q*vy*Bz
+        Fy = -q*vx*Bz
+
+        do i=1,N
+            ax = Fx/m
+            ay = Fy/m
+            k1x = vx
+            k1y = vy
+            k1_vx = vy
+            k1_vy = -vx
+
+            k2x = vx + 0.5*h*k1_vx
+            k2y = vy + 0.5*h*k1_vy
+            k2_vx = vy + 0.5*h*k1_vy
+            k2_vy = -(vx + 0.5*h*k1_vx)
+
+            k3x = vx + 0.5*h*k2_vx
+            k3y = vy + 0.5*h*k2_vy
+            k3_vx = vy + 0.5*h*k2_vy
+            k3_vy = -(vx + 0.5*h*k2_vx)
+
+            k4x = vx + h*k3_vx
+            k4y = vy + h*k3_vy
+            k4_vx = vy + h*k3_vy
+            k4_vy = -(vx + h*k3_vx)
+
+            x = x + h*(k1x + 2 * k2x + 2*k3x + k4x)/6.0
+            y = y + h*(k1y + 2*k2y + 2*k3y + k4y)/6.0
+
+            vx = vx + h*(k1_vx + 2*k2_vx + 2*k3_vx + k4_vx)/6
+            vy = vy + h*(k1_vy + 2*k2_vy + 2*k3_vy + k4_vy)/6
+
+            t = t + h
+            print*, x,y
+
+        end do
+
+
+end program
