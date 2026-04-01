@@ -1,0 +1,35 @@
+program differentiation
+    implicit none
+    real::x(100),y(100),z(100),pi,h,f,g,a,b,dfdx,dfdy,dfdz
+    integer:: i,j,k,N
+
+    pi = 3.1415
+    a = 0.0
+    b = 2*pi
+    h = 0.5
+    N = (b-a)/h
+
+
+    do i=1,N
+        do j=1,N
+            do k=1,N
+
+        x(i) = a + i*h
+        y(i) = a + j*h
+        z(i) = a + k*h
+
+        f = sin(x(i))*cos(y(j))*sin(z(k))
+
+       dfdx = ( sin(x(i)+h)*cos(y(j)*sin(z(k))) - sin(x(i))*cos(y(j)*sin(z(k)))) / h
+       dfdy = ( sin(x(i))*cos(y(j)+h)*(sin(z(k))) - sin(x(i))*cos(y(j)*sin(z(k)))) / h
+       dfdz =  ( sin(x(i))*cos(y(j))*(sin(z(k)+h)) - sin(x(i))*cos(y(j)*sin(z(k)))) / h
+
+
+     print*, x(i), y(j), z(k), dfdx, dfdy, dfdz
+        end do
+        end do
+        end do
+
+
+
+end program
