@@ -1,0 +1,86 @@
+program lorentz
+    implicit none
+        real:: E,F,q,Fx,Fy,Fz,vx,vy,vz,Bz,h,T,m,x,y,z
+        real:: Ex,Ey,Ez
+        real::Bx,By
+        real::k1x,k1y,k1_vx,k1_vy
+        real::k2x,k2y,k2_vx,k2_vy
+        real::k3x,k3y,k3_vx,k3_vy
+        real::k4x,k4y,k4_vx,k4_vy
+        real::k1z,k1_vz,k2z,k2_vz,k3_vz,k4z,k4_vz,k3z
+        real:: ax,ay,az
+        integer::i,N
+
+        h = 0.1
+        m = 1.0
+        x = 1.0
+        y = 1.0
+        z = 1.0
+        t = 0.0
+        vx = 2.0
+        vy = 4.0
+        vz = 6.0
+        q = 1.0
+        Bx = 1.0
+        By = 1.0
+        Bz = 1.0
+        Ex = 1.0
+        Ey = 1.0
+        Ez = 0.0
+        Fx = q*(Ex + (vy*Bz - vz*By))
+        Fy = q*(Ey - (vx*Bz - vz*Bx))
+        Fz = q*(Ez +(vx*By - vy*Bx))
+        N = 200
+
+
+
+        do i=1,N
+            ax = Fx/m
+            ay = Fy/m
+            az = Fz/m
+              k1x = vx
+            k1y = vy
+            k1z = vz
+
+            k1_vx = Ex + (vy*Bz - vz*By)
+            k1_vy = Ey - (vx*Bz - vz*Bx)
+            k1_vz = Ez +(vx*By - vy*Bx)
+
+            k2x = vx + 0.5*h*k1_vx
+            k2y = vy + 0.5*h*k1_vy
+            k2z = vz + 0.5*h*k1_vz
+
+            k2_vx = vy + 0.5*h*k1_vy
+            k2_vy = -(vx + 0.5*h*k1_vx)
+            k2_vz = 0
+
+            k3x = vx + 0.5*h*k2_vx
+            k3y = vy + 0.5*h*k2_vy
+            k3z = vz + 0.5*h*k2_vz
+
+            k3_vx = vy + 0.5*h*k2_vy
+            k3_vy = -(vx + 0.5*h*k2_vx)
+            k3_vz = 0
+
+            k4x = vx + h*k3_vx
+            k4y = vy + h*k3_vy
+            k4z = vz +  h*k3_vz
+
+            k4_vx = vy + h*k3_vy
+            k4_vy = -(vx + h*k3_vx)
+            k4_vz = 0
+
+            x = x + h*(k1x + 2 * k2x + 2*k3x + k4x)/6.0
+            y = y + h*(k1y + 2*k2y + 2*k3y + k4y)/6.0
+            z = z + h*(k1z + 2*k2z + 2*k3z + k4z)/6.0
+
+            vx = vx + h*(k1_vx + 2*k2_vx + 2*k3_vx + k4_vx)/6
+            vy = vy + h*(k1_vy + 2*k2_vy + 2*k3_vy + k4_vy)/6
+            vz = vz + h*(k1_vz + 2*k2_vz + 2*k3_vz + k4_vz)/6
+
+            print*, x,y,z
+
+        end do
+
+
+end program
