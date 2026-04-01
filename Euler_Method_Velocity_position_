@@ -1,0 +1,38 @@
+program Euler
+    implicit none
+
+
+    real::t,x,v,dt,a,dx
+    real::F,m
+    integer::i, n, j,g
+    x = 0.0
+    t = 0.0
+    dx = 0.02
+    v = 1.0
+    a = 1.0
+    m = 1
+    dt = 0.01
+    n = 100
+    g = 100
+
+    F = m*a
+
+   do i=1, n
+
+        t =  i*dt
+        x = x + v*dt
+          print*,x,t
+
+          end do
+
+    do j = 1, g
+        t = t + j*dt
+        v = v + a*t
+        print*, v,t
+
+    end do
+
+    end program Euler
+
+
+
