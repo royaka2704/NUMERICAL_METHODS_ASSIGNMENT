@@ -1,0 +1,24 @@
+program integration
+    implicit none
+    real::x,a,b,h,Q,f,pi
+    integer::i,N
+
+    pi = 3.1415
+    a = 0.0
+    b = 2*pi
+    h = 0.1
+    N = (b-a)/h
+
+    Q = 0.0
+
+    do i=0, N
+        x = a + i*h
+        f = cos(x)
+     if (i>0) then
+         Q = Q + f*h
+     end if
+
+    print*, x, Q
+
+    end do
+end program
