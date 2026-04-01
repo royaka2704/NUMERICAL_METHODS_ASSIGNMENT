@@ -1,0 +1,31 @@
+program force
+    implicit none
+    real:: x,t,vx,vy,h,F,y,g,v,S,a,m
+    integer:: i,n,j
+    x = 1.0
+    y = 1.0
+    t = 0.0
+    m = 1
+    a = 1
+
+    vx = 1.0
+    vy = 1.0
+
+    h = 0.01
+    n = 100
+
+    !F = 0
+
+    do i=1, n
+        x = x + vx*h
+        y = y + vy*h
+        t = t + h
+
+        print*, x,y
+
+
+    end do
+
+
+
+end program
