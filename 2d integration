@@ -1,0 +1,32 @@
+program integration
+    implicit none
+    real::x,a,b,h,Q,f,pi,y,P
+    real::c,d,hx,hy,Nx,Ny
+    integer::i,N,j
+
+    pi = 3.1415
+    a = 0.0
+    b = 2*pi
+    c = 0.0
+    d = 4*pi
+    hx = 0.1
+    hy = 0.1
+    Nx = (b-a)/hx
+    Ny = (d-c)/hy
+
+    Q = 0.0
+    P = 0.0
+
+    do i=0, Nx
+        do j = 0, Ny
+
+        x = a + i*hx
+        y = c + j*hy
+        f = cos(x)*sin(y)
+
+         Q = Q + f*hx*hy
+
+     print*, x, y, Q
+     end do
+     end do
+end program
